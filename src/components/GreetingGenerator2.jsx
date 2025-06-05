@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-
-const GreetingGenerator = () => {
+const GreetingGenerator2 = () => {
   const canvasRef = useRef(null);
   const [name, setName] = useState("");
   const [eidImage, setEidImage] = useState(null);
 
   useEffect(() => {
     const img = new Image();
-    img.src = "/eid_img.jpg"; // Make sure this image exists in your public folder
+    img.src = "/goru.jpg"; // Make sure this image exists in your public folder
     img.onload = () => setEidImage(img);
   }, []);
 
@@ -24,10 +23,10 @@ const GreetingGenerator = () => {
 
     // Draw the name text
     if (name.trim() !== "") {
-      ctx.font = "bold 60px 'Meow Script', cursive";
+      ctx.font = "italic 60px 'Meow Script', cursive";
 
       // Solid color fill
-      ctx.fillStyle = "#102e38";
+      ctx.fillStyle = "#3D231C";
 
       // Shadow for better readability
       ctx.shadowColor = "rgba(0, 0, 0, 0.7)";
@@ -35,11 +34,11 @@ const GreetingGenerator = () => {
       ctx.shadowOffsetY = 2;
       ctx.shadowBlur = 4;
 
-      ctx.textAlign = "bottom";
-      ctx.textBaseline = "bottom-right";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "bottom";
 
       // 👇 Updated: draw text with margin from top (e.g., 100px)
-      ctx.fillText(` ${name}`, canvas.width / 2, 100);
+      ctx.fillText(` ${name}`, canvas.width / 2, canvas.height - 20);
 
       // Reset shadow
       ctx.shadowColor = "transparent";
@@ -146,4 +145,4 @@ const GreetingGenerator = () => {
   );
 };
 
-export default GreetingGenerator;
+export default GreetingGenerator2;

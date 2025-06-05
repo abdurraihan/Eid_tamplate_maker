@@ -1,11 +1,8 @@
-import GreetingGenerator from "./components/GreetingGenerator";
+import React from "react";
+import GreetingSelector from "./components/GreetingSelector";
 
 function App() {
-  return (
-    <div className="App">
-      <GreetingGenerator />
-    </div>
-  );
+  return <GreetingSelector />;
 }
 
 export default App;
