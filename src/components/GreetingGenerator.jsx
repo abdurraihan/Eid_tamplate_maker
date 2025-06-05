@@ -1,90 +1,4 @@
-// import React, { useRef, useState, useEffect } from "react";
-// import image from '../../public/eid_image.jpg';
-
-// const GreetingGenerator = () => {
-//   const canvasRef = useRef(null);
-//   const [name, setName] = useState("");
-//   const [eidImage, setEidImage] = useState(null);
-
-//   useEffect(() => {
-//     const img = new Image();
-//     img.src = image; // loads from public folder
-//     img.onload = () => setEidImage(img);
-//   }, []);
-
-//   const drawImageWithText = () => {
-//     const canvas = canvasRef.current;
-//     if (!canvas || !eidImage) return;
-//     const ctx = canvas.getContext("2d");
-
-//     // Clear canvas
-//     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-//     // Draw the Eid image
-//     ctx.drawImage(eidImage, 0, 0, canvas.width, canvas.height);
-
-//     // Draw the name text
-//     if (name.trim() !== "") {
-//       ctx.font = "bold 48px Arial";
-//       ctx.fillStyle = "black";
-//       ctx.textAlign = "center";
-//       ctx.textBaseline = "bottom";
-
-//       // Position: bottom center, 100 px above bottom
-//       ctx.fillText(name, canvas.width / 2, canvas.height - 100);
-//     }
-//   };
-
-//   const handleDownload = () => {
-//     drawImageWithText();
-
-//     const canvas = canvasRef.current;
-//     if (!canvas) return;
-
-//     const link = document.createElement("a");
-//     link.download = `eid-greeting-${name || "guest"}.png`;
-//     link.href = canvas.toDataURL("image/png");
-//     link.click();
-//   };
-
-//   return (
-//     <div style={{ textAlign: "center", marginTop: "2rem" }}>
-//       <h2>Eid Greeting Generator</h2>
-//       <canvas
-//         ref={canvasRef}
-//         width={800}
-//         height={600}
-//         style={{ border: "1px solid #ccc" }}
-//       />
-//       <div style={{ marginTop: "1rem" }}>
-//         <input
-//           type="text"
-//           placeholder="Enter your name (Arabic or English)"
-//           value={name}
-//           onChange={(e) => setName(e.target.value)}
-//           style={{ fontSize: "1.2rem", padding: "0.5rem", width: "300px" }}
-//         />
-//       </div>
-//       <button
-//         onClick={handleDownload}
-//         style={{
-//           marginTop: "1rem",
-//           padding: "0.7rem 1.5rem",
-//           fontSize: "1.2rem",
-//           cursor: "pointer",
-//         }}
-//       >
-//         Download
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default GreetingGenerator;
-
-
-
-import React, { useRef, useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const GreetingGenerator = () => {
   const canvasRef = useRef(null);
@@ -93,7 +7,7 @@ const GreetingGenerator = () => {
 
   useEffect(() => {
     const img = new Image();
-    img.src = "/eid_image.jpg"; // Use public folder path
+    img.src = "/eid_img.jpg"; // Make sure this image exists in your public folder
     img.onload = () => setEidImage(img);
   }, []);
 
@@ -110,28 +24,24 @@ const GreetingGenerator = () => {
 
     // Draw the name text
     if (name.trim() !== "") {
-      // Use Cairo font or fallback to Arial
-      ctx.font = "bold 56px Cairo, Arial, sans-serif";
+      ctx.font = "bold 60px 'Meow Script', cursive";
 
-      // Create gradient fill for text
-      const gradient = ctx.createLinearGradient(0, canvas.height - 150, 0, canvas.height - 50);
-      gradient.addColorStop(0, "#ff9966");
-      gradient.addColorStop(1, "#ff5e62");
+      // Solid color fill
+      ctx.fillStyle = "#102e38";
 
-      ctx.fillStyle = gradient;
-
-      // Add shadow for better visibility
+      // Shadow for better readability
       ctx.shadowColor = "rgba(0, 0, 0, 0.7)";
       ctx.shadowOffsetX = 2;
       ctx.shadowOffsetY = 2;
       ctx.shadowBlur = 4;
 
-      ctx.textAlign = "center";
-      ctx.textBaseline = "bottom";
+      ctx.textAlign = "bottom";
+      ctx.textBaseline = "bottom-right";
 
-      ctx.fillText(name, canvas.width / 2, canvas.height - 100);
+      // 👇 Updated: draw text with margin from top (e.g., 100px)
+      ctx.fillText(` ${name}`, canvas.width / 2, 100);
 
-      // Reset shadow to avoid affecting other drawings
+      // Reset shadow
       ctx.shadowColor = "transparent";
     }
   };
@@ -171,7 +81,9 @@ const GreetingGenerator = () => {
           textAlign: "center",
         }}
       >
-        <h2 style={{ marginBottom: "20px", color: "#333" }}>🎉 Eid Greeting Generator 🎉</h2>
+        <h2 style={{ marginBottom: "20px", color: "#333" }}>
+          🎉 Eid Greeting Generator 🎉
+        </h2>
         <canvas
           ref={canvasRef}
           width={800}
@@ -218,8 +130,14 @@ const GreetingGenerator = () => {
             boxShadow: "0 6px 15px rgba(255,94,98,0.6)",
             transition: "background 0.3s",
           }}
-          onMouseEnter={(e) => (e.target.style.background = "linear-gradient(45deg, #ff9966, #ff5e62)")}
-          onMouseLeave={(e) => (e.target.style.background = "linear-gradient(45deg, #ff5e62, #ff9966)")}
+          onMouseEnter={(e) =>
+            (e.target.style.background =
+              "linear-gradient(45deg, #ff9966, #ff5e62)")
+          }
+          onMouseLeave={(e) =>
+            (e.target.style.background =
+              "linear-gradient(45deg, #ff5e62, #ff9966)")
+          }
         >
           Download
         </button>
